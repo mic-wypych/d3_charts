@@ -29,6 +29,7 @@ function App() {
 
   return (
     <>
+    <h1>d3 loves React 1st cohort</h1>
      <Barplot data = {data}/>
     </>
   )

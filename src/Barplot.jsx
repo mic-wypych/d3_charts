@@ -6,9 +6,9 @@ export const Barplot = ({ data }) => {
     /*What we need to do for the basics:
     - map country names to y axis
     - map number of students to x axis */
-    const width = 800;
-    const height = 600;
-    const marginLeft = 100;
+    const width = 900;
+    const height = 800;
+    const marginLeft = 120;
     const marginRight = 100;
     const marginTop = 100;
     const marginBottom = 100;
@@ -50,7 +50,7 @@ export const Barplot = ({ data }) => {
                         y={y(d.country) + y.bandwidth() / 2}
                         dy="0.35em"
                         textAnchor="end"
-                        fontSize={12}
+                        fontSize={14}
                     >
                         {d.country}
                     </text>
@@ -61,7 +61,7 @@ export const Barplot = ({ data }) => {
                     x={x(hovered.students) + 8}
                     y={y(hovered.country) + y.bandwidth() / 2}
                     dy="0.35em"
-                    fontSize={12}
+                    fontSize={14}
                     fontWeight="bold"
                     fill="firebrick"
                 >

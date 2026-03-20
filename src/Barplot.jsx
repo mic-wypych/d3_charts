@@ -25,14 +25,25 @@ export const Barplot = ({ data }) => {
     return (
         <svg width={width} height={height}>
             {data.map(d => (
-                <rect
-                    key={d.country}
-                    x={marginLeft}
-                    y={y(d.country)}
-                    width={x(d.students) - marginLeft}
-                    height={y.bandwidth()}
-                    fill={barColor}
-                />
+                <g key={d.country}>
+                    <rect
+                        x={marginLeft}
+                        y={y(d.country)}
+                        width={x(d.students) - marginLeft}
+                        height={y.bandwidth()}
+                        fill={barColor}
+                        rx={4}
+                    />
+                    <text
+                        x={marginLeft - 6}
+                        y={y(d.country) + y.bandwidth() / 2}
+                        dy="0.35em"
+                        textAnchor="end"
+                        fontSize={12}
+                    >
+                        {d.country}
+                    </text>
+                </g>
             ))}
         </svg>
     );

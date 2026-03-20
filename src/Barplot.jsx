@@ -14,27 +14,26 @@ export const Barplot = ({ data }) => {
     
 
     const x = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.student)])
-      .range([marginLeft, width - marginRight]);
-  
+        .domain([0, d3.max(data, d => d.students)])
+        .range([marginLeft, width - marginRight]);
+
     const y = d3.scaleBand()
-        .domain(d3.sort(data, d => -d.student).map(d => d.country))
+        .domain(d3.sort(data, d => -d.students).map(d => d.country))
         .rangeRound([marginTop, height - marginBottom])
         .padding(0.1);
 
-    const barHeight = y.bandwidth();
-
-    return(
-        <>
-        <div
-      style={{
-        left: x,
-        top: y,
-        color: barColor,
-        height: barHeight
-      }}
-    ></div>
-</>
-    )
-
+    return (
+        <svg width={width} height={height}>
+            {data.map(d => (
+                <rect
+                    key={d.country}
+                    x={marginLeft}
+                    y={y(d.country)}
+                    width={x(d.students) - marginLeft}
+                    height={y.bandwidth()}
+                    fill={barColor}
+                />
+            ))}
+        </svg>
+    );
 }

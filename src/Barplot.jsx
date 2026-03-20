@@ -1,6 +1,8 @@
+import { useState } from "react";
 import * as d3 from "d3";
 
 export const Barplot = ({ data }) => {
+    const [hovered, setHovered] = useState(null);
     /*What we need to do for the basics:
     - map country names to y axis
     - map number of students to x axis */
@@ -31,7 +33,10 @@ export const Barplot = ({ data }) => {
                 </linearGradient>
             </defs>
             {data.map(d => (
-                <g key={d.country}>
+                <g key={d.country}
+                    onMouseEnter={() => setHovered(d)}
+                    onMouseLeave={() => setHovered(null)}
+                >
                     <rect
                         x={marginLeft}
                         y={y(d.country)}
@@ -51,6 +56,18 @@ export const Barplot = ({ data }) => {
                     </text>
                 </g>
             ))}
+            {hovered && (
+                <text
+                    x={x(hovered.students) + 8}
+                    y={y(hovered.country) + y.bandwidth() / 2}
+                    dy="0.35em"
+                    fontSize={12}
+                    fontWeight="bold"
+                    fill="firebrick"
+                >
+                    {hovered.students}
+                </text>
+            )}
         </svg>
     );
 }

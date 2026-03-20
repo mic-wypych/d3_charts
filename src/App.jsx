@@ -28,10 +28,13 @@ function App() {
 
 
   return (
-    <>
-    <h1>d3 loves React 1st cohort</h1>
-     <Barplot data = {data}/>
-    </>
+    <div id="center">
+      <h1>d3 loves React 1st cohort</h1>
+      <div>A barplot showing the number of students from each country
+        <br></br>Hover on the bar to see exact number of students</div>
+      
+      <Barplot data={data} />
+    </div>
   )
 }
 

@@ -1,0 +1,40 @@
+import * as d3 from "d3";
+
+export const Barplot = ({ data }) => {
+    /*What we need to do for the basics:
+    - map country names to y axis
+    - map number of students to x axis */
+    const width = 800;
+    const height = 600;
+    const marginLeft = 100;
+    const marginRight = 100;
+    const marginTop = 100;
+    const marginBottom = 100;
+    const barColor = "firebrick";
+    
+
+    const x = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.student)])
+      .range([marginLeft, width - marginRight]);
+  
+    const y = d3.scaleBand()
+        .domain(d3.sort(data, d => -d.student).map(d => d.country))
+        .rangeRound([marginTop, height - marginBottom])
+        .padding(0.1);
+
+    const barHeight = y.bandwidth();
+
+    return(
+        <>
+        <div
+      style={{
+        left: x,
+        top: y,
+        color: barColor,
+        height: barHeight
+      }}
+    ></div>
+</>
+    )
+
+}

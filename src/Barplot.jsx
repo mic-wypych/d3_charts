@@ -10,7 +10,7 @@ export const Barplot = ({ data }) => {
     const marginRight = 100;
     const marginTop = 100;
     const marginBottom = 100;
-    const barColor = "firebrick";
+
     
 
     const x = d3.scaleLinear()
@@ -24,6 +24,12 @@ export const Barplot = ({ data }) => {
 
     return (
         <svg width={width} height={height}>
+            <defs>
+                <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="firebrick" stopOpacity={0} />
+                    <stop offset="100%" stopColor="firebrick" stopOpacity={1} />
+                </linearGradient>
+            </defs>
             {data.map(d => (
                 <g key={d.country}>
                     <rect
@@ -31,7 +37,7 @@ export const Barplot = ({ data }) => {
                         y={y(d.country)}
                         width={x(d.students) - marginLeft}
                         height={y.bandwidth()}
-                        fill={barColor}
+                        fill="url(#barGradient)"
                         rx={4}
                     />
                     <text

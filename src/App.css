@@ -1,3 +1,46 @@
+#app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--border);
+
+  h1 {
+    margin: 16px 0;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+  }
+}
+
+#app-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-btn {
+  font-family: var(--sans);
+  font-size: 14px;
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: var(--accent-bg);
+    color: var(--text-h);
+  }
+
+  &.active {
+    background: var(--accent-bg);
+    border-color: var(--accent-border);
+    color: var(--text-h);
+    font-weight: 500;
+  }
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;

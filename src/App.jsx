@@ -1,10 +1,9 @@
+import { useState } from 'react'
 import './App.css'
 import { Barplot } from './Barplot'
 import { SpinningBall } from './SpinningBall'
 
-function App() {
-  
-  const data = [
+const data = [
   { country: "United States", students: 68 },
   { country: "France", students: 21 },
   { country: "United Kingdom", students: 21 },
@@ -25,18 +24,39 @@ function App() {
   { country: "Romania", students: 3 },
   { country: "Philippines", students: 3 },
   { country: "New Zealand", students: 3 },
-  ];
+];
 
+// ── Add new visualizations here ──────────────────────────────────────────────
+const views = [
+  { id: "barplot",      label: "Barplot",      component: <Barplot data={data} /> },
+  { id: "spinningball", label: "Spinning Ball", component: <SpinningBall /> },
+];
+// ─────────────────────────────────────────────────────────────────────────────
+
+function App() {
+  const [activeId, setActiveId] = useState(views[0].id);
+  const activeView = views.find(v => v.id === activeId);
 
   return (
-    <div id="center">
-      <h1>d3 loves React 1st cohort</h1>
-      <div>A barplot showing the number of students from each country
-        <br></br>Hover on the bar to see exact number of students</div>
-      
-      <SpinningBall />
-      <Barplot data={data} />
-    </div>
+    <>
+      <header id="app-header">
+        <h1>d3 loves React 1st cohort</h1>
+        <nav id="app-nav">
+          {views.map(v => (
+            <button
+              key={v.id}
+              className={`nav-btn ${v.id === activeId ? "active" : ""}`}
+              onClick={() => setActiveId(v.id)}
+            >
+              {v.label}
+            </button>
+          ))}
+        </nav>
+      </header>
+      <div id="center">
+        {activeView.component}
+      </div>
+    </>
   )
 }
 

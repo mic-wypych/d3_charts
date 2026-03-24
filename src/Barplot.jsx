@@ -25,7 +25,11 @@ export const Barplot = ({ data }) => {
         .padding(0.1);
 
     return (
-        <svg width={width} height={height}>
+        <svg
+            viewBox={`0 0 ${width} ${height}`}
+            width="100%"
+            style={{ maxWidth: width }}
+        >
             <defs>
                 <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%" stopColor="firebrick" stopOpacity={0} />

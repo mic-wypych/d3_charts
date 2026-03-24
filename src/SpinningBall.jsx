@@ -20,7 +20,7 @@ const bezierPoint = (t, p0, p1, p2, p3) => {
 
 export const SpinningBall = () => {
     const width = 600;
-    const height = 400;
+    const height = 500;
     const cx = width / 2;
     const cy = height / 2;
     const R = 160;
@@ -138,7 +138,19 @@ export const SpinningBall = () => {
     const rightLabels = ["visualizations", "reports", "dashboards", "applications", "articles"];
 
     return (
-        <svg width={width} height={height} overflow="visible">
+        <svg
+            viewBox={`0 0 ${width} ${height}`}
+            width="100%"
+            style={{ maxWidth: width }}
+            overflow="visible"
+        >
+            <defs>
+                <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <rect width="20" height="20" fill="rgba(234, 246, 250, 0.22)" />
+                    <circle cx="10" cy="10" r="1" fill="rgba(100, 120, 220, 0.25)" />
+                </pattern>
+            </defs>
+            <rect x="-200" y="0" width={width + 400} height={height} fill="url(#dots)" />
             {curveHeights.map((h, i) => (
                 <g key={i}>
                     <path
@@ -151,8 +163,8 @@ export const SpinningBall = () => {
                         x={-8}
                         y={h}
                         dy="0.35em"
-                        fontSize={11}
-                        fill="rgba(100, 120, 220, 0.7)"
+                        fontSize={14}
+                        fill="rgba(9, 21, 77, 0.25)"
                         textAnchor="end"
                     >
                         {leftLabels[i]}
@@ -167,8 +179,8 @@ export const SpinningBall = () => {
                         x={width + 8}
                         y={h}
                         dy="0.35em"
-                        fontSize={11}
-                        fill="rgba(100, 120, 220, 0.7)"
+                        fontSize={14}
+                        fill="rgba(9, 21, 77, 0.25)"
                         textAnchor="start"
                     >
                         {rightLabels[i]}

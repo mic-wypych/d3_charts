@@ -1,5 +1,6 @@
 import './App.css'
 import { Barplot } from './Barplot'
+import { SpinningBall } from './SpinningBall'
 
 function App() {
   
@@ -33,6 +34,7 @@ function App() {
       <div>A barplot showing the number of students from each country
         <br></br>Hover on the bar to see exact number of students</div>
       
+      <SpinningBall />
       <Barplot data={data} />
     </div>
   )

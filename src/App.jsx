@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { Barplot } from './Barplot'
 import { SpinningBall } from './SpinningBall'
+import { SimpleSvg } from './SimpleSvg'
 
 const data = [
   { country: "United States", students: 68 },
@@ -30,6 +31,7 @@ const data = [
 const views = [
   { id: "barplot",      label: "Barplot",      component: <Barplot data={data} /> },
   { id: "spinningball", label: "Spinning Ball", component: <SpinningBall /> },
+  { id: "simplesvg",    label: "Simple Svg",    component: <SimpleSvg /> },
 ];
 // ─────────────────────────────────────────────────────────────────────────────
 

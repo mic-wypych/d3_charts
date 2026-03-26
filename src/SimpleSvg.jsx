@@ -75,28 +75,48 @@ export const SimpleSvg = () => {
     };
 
     return (
+        <>
+       <div>A simple plot showing flower petals<br></br> Each petal maps a petal length</div>
         <svg viewBox={`0 0 ${width} ${height}`} width="100%" style={{ maxWidth: width }}>
             <g transform={`translate(${cx}, ${cy})`}>
                 {data.map((d, i) => {
                     const angle = angleScale(i);
                     const length = scale(d.value);
                     const pathData = createPetalPath(length, angle);
-                    const angleDeg = (angle * 180 / Math.PI) - 70; // -90 to start at top
+                    const angleDeg = (angle * 180 / Math.PI) - 90; // -90 to start at top
+                    
+                    // Calculate text position at petal tip
+                    const textAngle = angle - Math.PI / 120; // -90 degrees in radians
+                    const textDistance = length + 15; // offset from tip
+                    const textX = textDistance * Math.cos(textAngle );
+                    const textY = textDistance * Math.sin(textAngle );
                     
                     return (
-                        <path
-                            key={i}
-                            d={pathData}
-                            fill="steelblue"
-                            fillOpacity={0.0}
-                            stroke="steelblue"
-                            strokeWidth={1}
-                            transform={`rotate(${angleDeg})`}
-                        />
+                        <g key={i}>
+                            <path
+                                d={pathData}
+                                fill="steelblue"
+                                fillOpacity={0.1}
+                                stroke="steelblue"q
+                                strokeWidth={1}
+                                transform={`rotate(${angleDeg})`}
+                            />
+                            <text
+                                x={textX}
+                                y={textY}
+                                fill="firebrick"
+                                fontSize={14}
+                                textAnchor="middle"
+                                dy="0.35em"
+                            >
+                                {d.value}
+                            </text>
+                        </g>
                     );
                 })}
             </g>
         </svg>
+        </>
     );
 };
 

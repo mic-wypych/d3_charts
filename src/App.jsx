@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import { Barplot } from './Barplot'
 import { SpinningBall } from './SpinningBall'
@@ -38,8 +38,32 @@ const views = [
 // ─────────────────────────────────────────────────────────────────────────────
 
 function App() {
-  const [activeId, setActiveId] = useState(views[0].id);
+  // Check for redirect parameter first
+  const urlParams = new URLSearchParams(window.location.search);
+  const redirectPath = urlParams.get('redirect');
+  
+  // Get initial view from URL path or redirect
+  let viewFromUrl;
+  if (redirectPath) {
+    viewFromUrl = redirectPath.split('/').pop();
+    // Clean up URL
+    window.history.replaceState({}, '', `/d3_charts/${viewFromUrl}`);
+  } else {
+    const pathParts = window.location.pathname.split('/');
+    viewFromUrl = pathParts[pathParts.length - 1];
+  }
+  
+  const initialView = views.find(v => v.id === viewFromUrl)?.id || views[0].id;
+  
+  const [activeId, setActiveId] = useState(initialView);
   const activeView = views.find(v => v.id === activeId);
+
+  // Update URL when activeId changes
+  useEffect(() => {
+    const base = '/d3_charts';
+    const newPath = `${base}/${activeId}`;
+    window.history.pushState({}, '', newPath);
+  }, [activeId]);
 
   return (
     <>

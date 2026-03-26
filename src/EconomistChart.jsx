@@ -92,6 +92,7 @@ export const EconomistChart = () => {
                         x={x(b)}
                         y={marginTop -10}
                         fontSize={14}
+                        fill= "grey"
                         textAnchor="middle"
                         dy="0.35em"
                     >

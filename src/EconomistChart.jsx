@@ -44,7 +44,7 @@ export const EconomistChart = () => {
         <svg
             viewBox={`0 0 ${width} ${height}`}
             width="100%"
-            style={{ maxWidth: width }}
+            style={{ maxWidth: width, fontFamily: 'Lato, sans-serif' }}
         >
             <rect 
                 x={0}

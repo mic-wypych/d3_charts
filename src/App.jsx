@@ -3,6 +3,7 @@ import './App.css'
 import { Barplot } from './Barplot'
 import { SpinningBall } from './SpinningBall'
 import { SimpleSvg } from './SimpleSvg'
+import { EconomistChart } from './EconomistChart'
 
 const data = [
   { country: "United States", students: 68 },
@@ -32,6 +33,7 @@ const views = [
   { id: "barplot",      label: "Barplot",      component: <Barplot data={data} /> },
   { id: "spinningball", label: "Spinning Ball", component: <SpinningBall /> },
   { id: "simplesvg",    label: "Simple Svg",    component: <SimpleSvg /> },
+  { id: "economist",    label: "Economist Chart", component: <EconomistChart /> },
 ];
 // ─────────────────────────────────────────────────────────────────────────────
 

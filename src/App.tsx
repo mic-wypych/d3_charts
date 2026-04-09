@@ -5,6 +5,8 @@ import { SpinningBall } from './SpinningBall'
 import { SimpleSvg } from './SimpleSvg'
 import { EconomistChart } from './EconomistChart'
 import { ShadcnuiTest } from './ShadcnuiTest'
+import { GapminderData } from "./GapminderData";
+import { BubbleChart } from './BubbleChart'
 
 interface CountryData {
   country: string;
@@ -47,6 +49,7 @@ const views: View[] = [
   { id: "simplesvg",    label: "Simple Svg",    component: <SimpleSvg /> },
   { id: "economist",    label: "Economist Chart", component: <EconomistChart /> },
   { id: "shadcn_test",  label: "Testing ShadcnUI", component: <ShadcnuiTest />},
+  { id: "bubble_chart", label: "Bubble Chart", component: <BubbleChart data = {GapminderData} />}
 ];
 // ─────────────────────────────────────────────────────────────────────────────
 

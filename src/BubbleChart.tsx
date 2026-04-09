@@ -1,4 +1,5 @@
 import {scaleLinear, scaleSqrt, scaleOrdinal, max, min} from "d3";
+import {Badge} from "@/components/ui/badge"
 
 interface DataItem {
     country: string;
@@ -43,6 +44,18 @@ export const BubbleChart = ({ data }: { data: DataItem[] }) => {
 
     /*scales*/
 
+   const COLOR_MAP: Record<string, string> = {
+        Asia:     "#073b4c",
+        Europe:   "#118ab2",
+        Africa:   "#ef476f",
+        Americas: "#ffd166",
+        Oceania:  "#f78c6b",
+        Australia: "#06d6a0"
+        };
+
+            
+    ["Asia", "Europe", "Africa", "Americas", "Oceania", "Australia"]
+
     const scaleX = scaleLinear()
         .domain([0, max(data, (d: DataItem) => d.gdpPercap)])
         .range([0, boundsWidth])
@@ -56,18 +69,39 @@ export const BubbleChart = ({ data }: { data: DataItem[] }) => {
         .range([BUBBLE_MIN_SIZE, BUBBLE_MAX_SIZE])
     
     const scaleColor = scaleOrdinal<string>()
-        .domain(["Asia", "Europe", "Africa", "Americas", "Oceania", "Australia"])
-        .range(["blue", "red", "green", "yellow", "black", "pink"])
+        .domain(Object.keys(COLOR_MAP) )
+        .range(Object.values(COLOR_MAP))
     
 
     return  (
+        <>
+        <p style={{ fontSize: "20px", marginBottom: "8px" }}>
+            Relation between GDP per capita and life expectancy across countries
+        </p>
+        
+        <div style={{display: "flex", gap: "8px", flexWrap: "wrap"}}>
+               {Object.entries(COLOR_MAP).map(([continent, color]) => (
+            <Badge key={continent} variant="outline" style={{ display: "inline-flex", gap: "4px", alignItems: "center", transform: "translateY(40px)" }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: color, display: "inline-block" }} />
+                {continent}
+            </Badge>
+        ))}
+
+        </div>
+     
+
+
 
         <svg width={width} height={height}>
+            
+
+
             <g
             width={boundsWidth}
             height={boundsHeight}
             transform={`translate(${MARGIN.left}, ${MARGIN.top})`}
             >
+                
             <line y1 = {boundsHeight}
                   y2 = {boundsHeight}
                   x1 = {0}
@@ -80,13 +114,13 @@ export const BubbleChart = ({ data }: { data: DataItem[] }) => {
                   x2 = {0}
                   stroke ="black"/>
             {scaleX.ticks(10).map((value) => (
-                <g key={value} transform={`translate(${scaleX(value)}, 0)`}>
-                <line y1 = {boundsHeight} y2={boundsHeight +TICK_LENGTH} stroke="black"/>
+                <g key={value} transform={`translate(${scaleX(value)}, ${boundsHeight})`}>
+                <line y2={TICK_LENGTH} stroke="black"/>
                 <text
                 style={{
                     fontSize: "10px",
                     textAnchor: "middle",
-                    transform: "translateY(620px)"
+                    transform: "translateY(20px)"
                 }}>
                     {value}
                 </text>
@@ -117,24 +151,23 @@ export const BubbleChart = ({ data }: { data: DataItem[] }) => {
                 opacity={0.5}/>
             ))}
             <text
-            style={{
-                    fontSize: "14px",
-                    textAnchor: "middle",
-                    transform: "translateY(640px) translateX(540px)"
-                }}>
+                fontSize="14"
+                textAnchor="middle"
+                transform={`translate(${boundsWidth / 2}, ${boundsHeight + 40})`}
+            >
                 Gdp Per Capita
             </text>
 
             <text
-            style={{
-                    fontSize: "14px",
-                    textAnchor: "middle",
-                    transform: "translateY(0) translateX(0px)"
-                }}>
+                fontSize="14"
+                textAnchor="middle"
+                transform={`translate(-40, ${boundsHeight / 2}) rotate(-90)`}
+            >
                 Life expectancy
             </text>
             
             </g>
 
         </svg>
+        </>
 )}

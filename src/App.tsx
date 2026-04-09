@@ -4,6 +4,7 @@ import { Barplot } from './Barplot'
 import { SpinningBall } from './SpinningBall'
 import { SimpleSvg } from './SimpleSvg'
 import { EconomistChart } from './EconomistChart'
+import { ShadcnuiTest } from './ShadcnuiTest'
 
 interface CountryData {
   country: string;
@@ -45,6 +46,7 @@ const views: View[] = [
   { id: "spinningball", label: "Spinning Ball", component: <SpinningBall /> },
   { id: "simplesvg",    label: "Simple Svg",    component: <SimpleSvg /> },
   { id: "economist",    label: "Economist Chart", component: <EconomistChart /> },
+  { id: "shadcn_test",  label: "Testing ShadcnUI", component: <ShadcnuiTest />},
 ];
 // ─────────────────────────────────────────────────────────────────────────────
 

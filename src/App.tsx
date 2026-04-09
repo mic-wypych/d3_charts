@@ -6,6 +6,7 @@ import { SimpleSvg } from './SimpleSvg'
 import { EconomistChart } from './EconomistChart'
 import { ShadcnuiTest } from './ShadcnuiTest'
 import { GapminderData } from "./GapminderData";
+import { EnergyData} from "./EnergyData.tsx";
 import { BubbleChart } from './BubbleChart'
 
 interface CountryData {

@@ -45,7 +45,6 @@ const data: CountryData[] = [
 // ── Add new visualizations here ──────────────────────────────────────────────
 const views: View[] = [
   { id: "barplot",      label: "Barplot",      component: <Barplot data={data} /> },
-  { id: "spinningball", label: "Spinning Ball", component: <SpinningBall /> },
   { id: "simplesvg",    label: "Simple Svg",    component: <SimpleSvg /> },
   { id: "economist",    label: "Economist Chart", component: <EconomistChart /> },
   { id: "shadcn_test",  label: "Testing ShadcnUI", component: <ShadcnuiTest />},

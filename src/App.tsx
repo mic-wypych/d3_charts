@@ -47,9 +47,9 @@ const views: View[] = [
   { id: "barplot",      label: "Barplot",      component: <Barplot data={data} /> },
   { id: "simplesvg",    label: "Simple Svg",    component: <SimpleSvg /> },
   { id: "economist",    label: "Economist Chart", component: <EconomistChart /> },
-  { id: "shadcn_test",  label: "Testing ShadcnUI", component: <ShadcnuiTest />},
-  { id: "bubble_chart", label: "Bubble Chart", component: <BubbleChart data = {GapminderData} />}
-];
+  { id: "bubble_chart", label: "Bubble Chart", component: <BubbleChart data = {GapminderData} />},
+  { id: "shadcn_test",  label: "Testing ShadcnUI", component: <ShadcnuiTest />}]
+  
 // ─────────────────────────────────────────────────────────────────────────────
 
 function App() {

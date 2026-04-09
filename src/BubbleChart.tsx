@@ -49,8 +49,7 @@ export const BubbleChart = ({ data }: { data: DataItem[] }) => {
         Europe:   "#118ab2",
         Africa:   "#ef476f",
         Americas: "#ffd166",
-        Oceania:  "#f78c6b",
-        Australia: "#06d6a0"
+        Oceania:  "#f78c6b"
         };
 
             

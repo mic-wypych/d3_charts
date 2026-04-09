@@ -1,5 +1,6 @@
 import {scaleLinear, scaleSqrt, scaleOrdinal, max, min} from "d3";
-import {Badge} from "@/components/ui/badge"
+import {Badge} from "@/components/ui/badge";
+import {useState} from "react";
 
 interface DataItem {
     country: string;
@@ -70,6 +71,8 @@ export const BubbleChart = ({ data }: { data: DataItem[] }) => {
     const scaleColor = scaleOrdinal<string>()
         .domain(Object.keys(COLOR_MAP) )
         .range(Object.values(COLOR_MAP))
+
+    const [hovered, setHovered] = useState<DataItem | null>(null);
     
 
     return  (
@@ -88,8 +91,6 @@ export const BubbleChart = ({ data }: { data: DataItem[] }) => {
 
         </div>
      
-
-
 
         <svg width={width} height={height}>
             
@@ -147,8 +148,22 @@ export const BubbleChart = ({ data }: { data: DataItem[] }) => {
                 cy={scaleY(d.lifeExp)}
                 r={scaleSize(d.pop)} 
                 fill={scaleColor(d.continent)}
-                opacity={0.5}/>
+                opacity={0.5}
+                onMouseEnter={() => setHovered(d)}
+                onMouseLeave={() => setHovered(null)}
+                style={{ cursor: "pointer" }}
+                />
             ))}
+
+            {hovered && (
+                <g transform={`translate(${scaleX(hovered.gdpPercap)}, ${scaleY(hovered.lifeExp)})`}>
+                    <rect x={10} y={-60} width={160} height={70} fill="white" stroke="#ccc" rx={4} />
+                    <text x={18} y={-42} fontSize="11" fontWeight="bold">{hovered.country}</text>
+                    <text x={18} y={-28} fontSize="10">Population: {hovered.pop.toLocaleString()}</text>
+                    <text x={18} y={-16} fontSize="10">GDP/cap: ${hovered.gdpPercap.toFixed(0)}</text>
+                    <text x={18} y={-4}  fontSize="10">Life exp: {hovered.lifeExp} yrs</text>
+                </g>
+            )}
             <text
                 fontSize="14"
                 textAnchor="middle"

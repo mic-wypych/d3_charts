@@ -1,8 +1,13 @@
 import * as d3 from "d3";
 
+interface DataItem {
+    count: number;
+    name: string;
+}
+
 export const EconomistChart = () => {
 
-    const data = [
+    const data: DataItem[] = [
         { count: 6, name: "Hantavirus" },
         { count: 7, name: "Tularemia" },
         { count: 7, name: "Dengue" },
@@ -29,11 +34,11 @@ export const EconomistChart = () => {
     const source = "The Economist"
 
     const x = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.count)])
+        .domain([0, d3.max(data, (d: DataItem) => d.count) ?? 0])
         .range([marginLeft, width - marginRight]);
 
     const y = d3.scaleBand()
-    .domain(d3.sort(data, d => -d.count).map(d => d.name))
+    .domain(d3.sort(data, (d: DataItem) => -d.count).map((d: DataItem) => d.name))
         .rangeRound([marginTop, height - marginBottom])
         .padding(0.1);
 
@@ -126,7 +131,7 @@ export const EconomistChart = () => {
                 <g key={d.name}>
                     <text
                         x = {d.count < 9 ? x(d.count) + 10 : marginLeft + 5}
-                        y={y(d.name) + y.bandwidth() / 2}
+                        y={(y(d.name) ?? 0) + y.bandwidth() / 2}
                         dy="0.1em"
                         fill= {d.count < 9 ? "rgb(7, 111, 162)": "white"}
                         fontSize={14}

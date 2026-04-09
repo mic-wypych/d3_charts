@@ -1,16 +1,38 @@
 import { useState, useEffect, useRef } from "react";
 
-const easeInOutQuad = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+interface Point {
+    px: number;
+    py: number;
+    pointR: number;
+    opacity: number;
+    depth: number;
+    color: string;
+}
+
+interface FlowPoint {
+    x: number;
+    y: number;
+    key: string;
+}
+
+interface RingConfig {
+    ringPhase: number;
+    intraOffsets: number[];
+    colors: string[];
+}
+
+const easeInOutQuad = (t: number): number => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
 
 // Ease in to midpoint, pause, ease out to end
-const easeWithPause = (t) => {
+const easeWithPause = (t: number): number => {
     const moveIn = 0.4, pause = 0.2, moveOut = 0.4;
     if (t < moveIn)               return 0.5 * easeInOutQuad(t / moveIn);
     if (t < moveIn + pause)       return 0.5;
     return 0.5 + 0.5 * easeInOutQuad((t - moveIn - pause) / moveOut);
 };
 
-const bezierPoint = (t, p0, p1, p2, p3) => {
+interface Vec2 { x: number; y: number }
+const bezierPoint = (t: number, p0: Vec2, p1: Vec2, p2: Vec2, p3: Vec2): Vec2 => {
     const m = 1 - t;
     return {
         x: m**3*p0.x + 3*m**2*t*p1.x + 3*m*t**2*p2.x + t**3*p3.x,
@@ -27,10 +49,10 @@ export const SpinningBall = () => {
     const N = 11; // number of ellipses (latitude rings)
 
     const [elapsed, setElapsed] = useState(0);
-    const rafRef = useRef();
-    const startRef = useRef(null);
+    const rafRef = useRef<number>(0);
+    const startRef = useRef<number | null>(null);
     // Per-ring config: fixed on mount
-    const ringConfigs = useRef(
+    const ringConfigs = useRef<RingConfig[]>(
         Array.from({ length: N }, () => {
             // Random starting position for the whole ring
             const ringPhase = Math.random() * 2 * Math.PI;
@@ -42,7 +64,7 @@ export const SpinningBall = () => {
             // draw random weights, then normalize to 2π
             const weights = Array.from({ length: count }, () => 0.5 + Math.random());
             const total = weights.reduce((s, w) => s + w, 0);
-            const intraOffsets = weights.reduce((acc, w) => {
+            const intraOffsets = weights.reduce((acc: number[], w) => {
                 acc.push((acc.at(-1) ?? 0) + (w / total) * 2 * Math.PI);
                 return acc;
             }, []);
@@ -56,9 +78,9 @@ export const SpinningBall = () => {
     );
 
     useEffect(() => {
-        const animate = (timestamp) => {
+        const animate = (timestamp: number) => {
             if (startRef.current === null) startRef.current = timestamp;
-            setElapsed(timestamp - startRef.current);
+            setElapsed(timestamp - startRef.current!);
             rafRef.current = requestAnimationFrame(animate);
         };
 
@@ -69,7 +91,7 @@ export const SpinningBall = () => {
     const angle = (elapsed * 0.0002) % (2 * Math.PI);
 
     // Build one entry per point across all rings
-    const points = [];
+    const points: Point[] = [];
     for (let i = 0; i < N; i++) {
         const phi = Math.PI * (i + 1) / (N + 1);
         const rx = R * Math.sin(phi);
@@ -108,7 +130,7 @@ export const SpinningBall = () => {
     const stagger   = 0.14;      // each curve starts 14% of cycle later
     const active    = 0.72;      // fraction of cycle the point is visible
 
-    const flowPoints = [];
+    const flowPoints: FlowPoint[] = [];
     curveHeights.forEach((h, i) => {
         const phase = (((elapsed * flowSpeed) - i * stagger) % 1 + 1) % 1;
         if (phase >= active) return; // in the reset gap — invisible

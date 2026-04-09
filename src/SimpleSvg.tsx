@@ -1,4 +1,3 @@
-import { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 /* 
 What do we want:
@@ -17,7 +16,7 @@ We would need to 1. map the categories to radius
 
 
 export const SimpleSvg = () => {
-    const data = [
+    const data: { petal: string; value: number }[] = [
         { petal: "petal1", value: 10 },
         { petal: "petal2", value: 20 },
         { petal: "petal3", value: 15 },
@@ -35,7 +34,7 @@ export const SimpleSvg = () => {
     const cy = height / 2;
 
     const scale = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.value)])
+        .domain([0, d3.max(data, (d) => d.value) ?? 0])
         .range([0, width / 2 - 20]);
 
     // Calculate angle for each petal
@@ -44,7 +43,7 @@ export const SimpleSvg = () => {
         .range([0, 2 * Math.PI]);
 
     // Function to create a petal path
-    const createPetalPath = (length, angle) => {
+    const createPetalPath = (length: number, _angle: number): string => {
         const path = d3.path();
         
         // Petal width (adjust to taste)
@@ -97,7 +96,7 @@ export const SimpleSvg = () => {
                                 d={pathData}
                                 fill="steelblue"
                                 fillOpacity={0.1}
-                                stroke="steelblue"q
+                                stroke="steelblue"
                                 strokeWidth={1}
                                 transform={`rotate(${angleDeg})`}
                             />

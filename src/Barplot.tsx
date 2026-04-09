@@ -1,8 +1,17 @@
 import { useState } from "react";
 import * as d3 from "d3";
 
-export const Barplot = ({ data }) => {
-    const [hovered, setHovered] = useState(null);
+interface DataItem {
+    country: string;
+    students: number;
+}
+
+interface BarplotProps {
+    data: DataItem[];
+}
+
+export const Barplot = ({ data }: BarplotProps) => {
+    const [hovered, setHovered] = useState<DataItem | null>(null);
     /*What we need to do for the basics:
     - map country names to y axis
     - map number of students to x axis */
@@ -16,11 +25,11 @@ export const Barplot = ({ data }) => {
     
 
     const x = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.students)])
+        .domain([0, d3.max(data, (d: DataItem) => d.students) ?? 0])
         .range([marginLeft, width - marginRight]);
 
     const y = d3.scaleBand()
-        .domain(d3.sort(data, d => -d.students).map(d => d.country))
+        .domain(d3.sort(data, (d: DataItem) => -d.students).map((d: DataItem) => d.country))
         .rangeRound([marginTop, height - marginBottom])
         .padding(0.1);
 
@@ -51,7 +60,7 @@ export const Barplot = ({ data }) => {
                     />
                     <text
                         x={marginLeft - 6}
-                        y={y(d.country) + y.bandwidth() / 2}
+                        y={(y(d.country) ?? 0) + y.bandwidth() / 2}
                         dy="0.35em"
                         textAnchor="end"
                         fontSize={14}
@@ -63,7 +72,7 @@ export const Barplot = ({ data }) => {
             {hovered && (
                 <text
                     x={x(hovered.students) + 8}
-                    y={y(hovered.country) + y.bandwidth() / 2}
+                    y={(y(hovered.country) ?? 0) + y.bandwidth() / 2}
                     dy="0.35em"
                     fontSize={14}
                     fontWeight="bold"

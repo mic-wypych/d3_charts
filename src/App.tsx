@@ -4,8 +4,22 @@ import { Barplot } from './Barplot'
 import { SpinningBall } from './SpinningBall'
 import { SimpleSvg } from './SimpleSvg'
 import { EconomistChart } from './EconomistChart'
+import { ShadcnuiTest } from './ShadcnuiTest'
+import { GapminderData } from "./GapminderData";
+import { BubbleChart } from './BubbleChart'
 
-const data = [
+interface CountryData {
+  country: string;
+  students: number;
+}
+
+interface View {
+  id: string;
+  label: string;
+  component: React.ReactElement;
+}
+
+const data: CountryData[] = [
   { country: "United States", students: 68 },
   { country: "France", students: 21 },
   { country: "United Kingdom", students: 21 },
@@ -29,12 +43,13 @@ const data = [
 ];
 
 // ── Add new visualizations here ──────────────────────────────────────────────
-const views = [
+const views: View[] = [
   { id: "barplot",      label: "Barplot",      component: <Barplot data={data} /> },
-  { id: "spinningball", label: "Spinning Ball", component: <SpinningBall /> },
   { id: "simplesvg",    label: "Simple Svg",    component: <SimpleSvg /> },
   { id: "economist",    label: "Economist Chart", component: <EconomistChart /> },
-];
+  { id: "bubble_chart", label: "Bubble Chart", component: <BubbleChart data = {GapminderData} />},
+  { id: "shadcn_test",  label: "Testing ShadcnUI", component: <ShadcnuiTest />}]
+  
 // ─────────────────────────────────────────────────────────────────────────────
 
 function App() {
@@ -55,7 +70,7 @@ function App() {
   
   const initialView = views.find(v => v.id === viewFromUrl)?.id || views[0].id;
   
-  const [activeId, setActiveId] = useState(initialView);
+  const [activeId, setActiveId] = useState<string>(initialView);
   const activeView = views.find(v => v.id === activeId);
 
   // Update URL when activeId changes
@@ -82,7 +97,7 @@ function App() {
         </nav>
       </header>
       <div id="center">
-        {activeView.component}
+        {activeView?.component}
       </div>
     </>
   )

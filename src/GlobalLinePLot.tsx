@@ -39,7 +39,7 @@ export function GlobalLinePlot({ yearRange, selectedTypes }:
         {scaleY.ticks(5).map(t => (
           <g key={t} transform={`translate(0,${scaleY(t)})`}>
             <line x2={bW} stroke="#eee"/>
-            <text x={-6} textAnchor="end" dominantBaseline="middle" fontSize={10}>{Math.round(t) + " TWh"}</text>
+            <text x={-2} textAnchor="end" dominantBaseline="middle" fontSize={8}>{Math.round(t) + " TWh"}</text>
           </g>
         ))}
         {selectedTypes.map(t => {

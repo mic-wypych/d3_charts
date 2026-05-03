@@ -18,7 +18,8 @@ import { CountryPanel } from "./CountryPanel";
 /* rebuilding :
 - rebuild axes to a separate module (with titles?)
 - rebuild responsiveness with the ref and usedimensions hook
-
+- rebuild country panel
+- fix axis text on total bar plot
 */
 
 
@@ -65,8 +66,8 @@ const toggleCountry = (c: string) =>
 setSelectedCountries(prev => prev.includes(c) ? prev.filter(x => x!==c) : [...prev, c]);
 
  return(
-    <div >
-        <h3>Global Energy</h3>
+    <div style={{width: "100vw"}}>
+        <h1>Global Energy</h1>
         <div>
             Energy mix varies across countries and time. This dashboard allows you to explore those differences and trends in a few interactive plots
         </div>
@@ -74,7 +75,7 @@ setSelectedCountries(prev => prev.includes(c) ? prev.filter(x => x!==c) : [...pr
     
     <div style={{maxWidth: 2000, display: "flex", justifyContent: "space-between"}}>
     <div style={{marginBottom: 10, width: "48%"}}>
-    <p style={{fontSize:12, marginBottom:6, fontWeight:600}}>Year range: {yearRange[0]} – {yearRange[1]}</p>
+    <p style={{fontSize:"1.1em", marginBottom:6, fontWeight:600}}>Year range: {yearRange[0]} – {yearRange[1]}</p>
     <Slider min={MIN_YEAR} max={MAX_YEAR} value={yearRange} onValueChange={v => setYearRange(v as [number,number])}/>
    </div>
 

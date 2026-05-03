@@ -36,7 +36,7 @@ export function GlobalTotalBar({ yearRange, selectedTypes }:
         {scaleY.ticks(5).map(t => (
           <g key={t} transform={`translate(0,${scaleY(t)})`}>
             <line x2={bW} stroke="#eee"/>
-            <text x={-6} textAnchor="end" dominantBaseline="middle" fontSize={10}>{Math.round(t)}</text>
+            <text x={-6} textAnchor="end" dominantBaseline="middle" fontSize={10}>{Math.round(t) + " TWh"}</text>
           </g>
         ))}
         {totals.map(({ type, value }) => (

@@ -5,7 +5,8 @@ import {
   DropdownMenu, DropdownMenuTrigger, DropdownMenuContent,
   DropdownMenuCheckboxItem, DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useContainerWidth } from "@/hooks/useContainerWidth";
 import { EnergyData } from "./EnergyData";
 import { GlobalLinePlot } from "./GlobalLinePLot";
 import { GlobalTotalBar } from "./GlobalTotalBar";
@@ -30,6 +31,10 @@ const _data = EnergyData as EnergyRow[];
 const ALL_COUNTRIES = [...new Set(_data.map(d => d.country))].filter(c => c !== "World").sort();
 // ── Main dashboard ────────────────────────────────────────────────
 export function EnergyDashboard() {
+  const chartRef = useRef<HTMLDivElement | null>(null);
+  const containerWidth = useContainerWidth(chartRef);
+  const isMobile = containerWidth > 0 && containerWidth < 640;
+
   const [yearRange, setYearRange] = useState<[number,number]>([2000, MAX_YEAR]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>(["oil","gas","coal","wind","solar"]);
   const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
@@ -40,7 +45,7 @@ export function EnergyDashboard() {
     setSelectedCountries(prev => prev.includes(c) ? prev.filter(x => x!==c) : [...prev, c]);
 
   return (
-    <div style={{padding:"1.5rem", maxWidth:1400, margin:"0 auto"}}>
+    <div ref={chartRef} style={{padding:"1.5rem", maxWidth:1400, margin:"0 auto", width:"100%", alignSelf:"stretch"}}>
       <h2 style={{marginBottom:"1.2rem"}}>Global Energy Dashboard</h2>
 
       {/* ── Year + energy type controls ── */}
@@ -67,7 +72,7 @@ export function EnergyDashboard() {
       </div>
 
       {/* ── Top two charts ── */}
-      <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:"1rem", marginBottom:"2rem"}}>
+      <div style={{display:"grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap:"1rem", marginBottom:"2rem"}}>
         <div>
           <p style={{fontSize:12, fontWeight:600, marginBottom:4}}>Energy mix over time (World)</p>
           <GlobalLinePlot yearRange={yearRange} selectedTypes={selectedTypes}/>

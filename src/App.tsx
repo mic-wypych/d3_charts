@@ -5,7 +5,9 @@ import { SpinningBall } from './SpinningBall'
 import { SimpleSvg } from './SimpleSvg'
 import { EconomistChart } from './EconomistChart'
 import { ShadcnuiTest } from './ShadcnuiTest'
+import { EnergyDashboard } from './energyDashboard'
 import { GapminderData } from "./GapminderData";
+import { EnergyData} from "./EnergyData.tsx";
 import { BubbleChart } from './BubbleChart'
 
 interface CountryData {
@@ -48,7 +50,9 @@ const views: View[] = [
   { id: "simplesvg",    label: "Simple Svg",    component: <SimpleSvg /> },
   { id: "economist",    label: "Economist Chart", component: <EconomistChart /> },
   { id: "bubble_chart", label: "Bubble Chart", component: <BubbleChart data = {GapminderData} />},
-  { id: "shadcn_test",  label: "Testing ShadcnUI", component: <ShadcnuiTest />}]
+  { id: "shadcn_test",  label: "Testing ShadcnUI", component: <ShadcnuiTest />},
+  { id: "energy",       label: "Energy Dashboard", component: <EnergyDashboard /> },
+]
   
 // ─────────────────────────────────────────────────────────────────────────────
 

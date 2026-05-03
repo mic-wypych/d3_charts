@@ -19,7 +19,7 @@ const TYPE_COLORS: Record<string,string> = {
 
 export function GlobalLinePlot({ yearRange, selectedTypes }:
   { yearRange: [number,number]; selectedTypes: string[] }) {
-  const W = 460, H = 260, bW = W - M.left - M.right, bH = H - M.top - M.bottom;
+  const W = 400, H = 260, bW = W - M.left - M.right, bH = H - M.top - M.bottom;
   const world = useMemo(() =>
     _data.filter(d => d.country === "World" && d.year >= yearRange[0] && d.year <= yearRange[1]),
     [yearRange]);

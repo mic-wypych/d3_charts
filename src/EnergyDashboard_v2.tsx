@@ -110,15 +110,13 @@ setSelectedCountries(prev => prev.includes(c) ? prev.filter(x => x!==c) : [...pr
     
 
         
-    <div style={{display: "flex", width: "100%"}}>
-        <div style={{width: "100%"}}>
-        <GlobalLinePlot yearRange={yearRange} selectedTypes={selectedTypes}/>
+    <div style={{display: "flex", width: "100%", flexWrap: "wrap", gap: "1rem"}}>
+        <div style={{flex: 1, minWidth: 300}}>
+          <GlobalLinePlot yearRange={yearRange} selectedTypes={selectedTypes}/>
         </div>
-
-        <div style={{width: "100%"}}>
-            <GlobalTotalBar yearRange={yearRange} selectedTypes={selectedTypes}/>
+        <div style={{flex: 1, minWidth: 300}}>
+          <GlobalTotalBar yearRange={yearRange} selectedTypes={selectedTypes}/>
         </div>
-
     </div>
     </>
     )}

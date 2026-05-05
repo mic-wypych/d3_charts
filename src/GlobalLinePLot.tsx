@@ -1,6 +1,7 @@
 import { scaleLinear, max, line as d3line } from "d3";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { EnergyData } from "./EnergyData";
+import { useDimensions } from "./hooks/useDimensions";
 
 interface EnergyRow {
   country: string; year: number; primary_energy: number;
@@ -17,9 +18,29 @@ const TYPE_COLORS: Record<string,string> = {
   biofuel:"#27AE60", other_renewable:"#1ABC9C",
 };
 
-export function GlobalLinePlot({ yearRange, selectedTypes }:
-  { yearRange: [number,number]; selectedTypes: string[] }) {
-  const W = 400, H = 260, bW = W - M.left - M.right, bH = H - M.top - M.bottom;
+/* responive version */
+
+export const GlobalLinePlot = ({ yearRange, selectedTypes }: { yearRange: [number,number]; selectedTypes: string[] }) => {
+ const chartRef = useRef(null);
+ const chartSize = useDimensions(chartRef)
+
+ return(
+  <div ref={chartRef} style={{width: "100%", height: 400}}>
+    {chartSize.width > 0 && chartSize.height > 0 && (
+      <GlobalLinePlotMain
+        height={chartSize.height}
+        width={chartSize.width}
+        yearRange={yearRange}
+        selectedTypes={selectedTypes}
+      />
+    )}
+  </div>
+ )
+}
+
+
+const GlobalLinePlotMain = ({ yearRange, selectedTypes, width, height }: { yearRange: [number,number]; selectedTypes: string[]; width: number; height: number }) => {
+  const W = width, H = height, bW = W - M.left - M.right, bH = H - M.top - M.bottom;
   const world = useMemo(() =>
     _data.filter(d => d.country === "World" && d.year >= yearRange[0] && d.year <= yearRange[1]),
     [yearRange]);
@@ -50,4 +71,3 @@ export function GlobalLinePlot({ yearRange, selectedTypes }:
     </svg>
   );
 }
-

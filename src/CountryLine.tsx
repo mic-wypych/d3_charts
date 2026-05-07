@@ -41,7 +41,7 @@ export function CountryLineMain({ yearRange, selectedTypes, selectedCountries, w
   { yearRange:[number,number]; selectedTypes:string[]; selectedCountries:string[]; width:number; height:number }) {
   const ML=90, MR=8, MT=8;
   const SW = width - ML - MR;
-  const BAND_H = 58, AXIS_H = 16;
+  const BAND_H = 150, AXIS_H = 16;
   const bH = Math.max(selectedCountries.length * BAND_H, 1);
 
   const countryRows = useMemo(() =>

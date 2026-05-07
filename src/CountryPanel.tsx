@@ -42,7 +42,7 @@ export function CountryPanelMain({ yearRange, selectedTypes, selectedCountries, 
   { yearRange:[number,number]; selectedTypes:string[]; selectedCountries:string[]; width:number; height:number }) {
   const ML=90, MR=8, MT=8;
   const BW = width - ML - MR;
-  const BAND_H = 58;
+  const BAND_H = 150;
   const bH = Math.max(selectedCountries.length * BAND_H, 1);
   const TOTAL_W = ML + BW + MR;
 

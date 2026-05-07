@@ -14,7 +14,7 @@ import { EnergyData } from "./EnergyData";
 import { GlobalLinePlot } from "./GlobalLinePLot";
 import { GlobalTotalBar } from "./GlobalTotalBar";
 import { CountryPanel } from "./CountryPanel";
-
+import { CountryLine } from "./CountryLine";
 /* rebuilding :
 - rebuild axes to a separate module (with titles?)
 - rebuild responsiveness with the ref and usedimensions hook
@@ -153,8 +153,19 @@ setSelectedCountries(prev => prev.includes(c) ? prev.filter(x => x!==c) : [...pr
             )}
           </div>
        <div>
-        <p style={{fontSize:12, fontWeight:600, marginBottom:4}}>Country breakdown — stacked totals (left) &amp; trends (right)</p>
-        <CountryPanel yearRange={yearRange} selectedTypes={selectedTypes} selectedCountries={selectedCountries}/>
+        <p style={{fontSize:12, fontWeight:600, marginBottom:4}}>Country breakdown — stacked totals &amp; trends</p>
+        <div style = {{display: "flex", width: "100%", flexWrap: "wrap", gap: "1rem"}}>
+          <div style={{flex: 1, minWidth: 200}}>
+            <CountryPanel yearRange={yearRange} selectedTypes={selectedTypes} selectedCountries={selectedCountries}/>
+          </div>
+        
+
+        <div style={{flex: 1, minWidth: 200}}>
+          <CountryLine yearRange={yearRange} selectedTypes={selectedTypes} selectedCountries={selectedCountries}/>
+
+        </div>
+        
+            </div>
       </div>
     </>)}
     </div>

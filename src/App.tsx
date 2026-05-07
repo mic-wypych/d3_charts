@@ -51,7 +51,7 @@ const views: View[] = [
   { id: "economist",    label: "Economist Chart", component: <EconomistChart /> },
   { id: "bubble_chart", label: "Bubble Chart", component: <BubbleChart data = {GapminderData} />},
   { id: "shadcn_test",  label: "Testing ShadcnUI", component: <ShadcnuiTest />},
-  { id: "energy_nonai", label: "Energy Dashboard", component: <Dashboardenergy /> }
+  { id: "energy", label: "Energy Dashboard", component: <Dashboardenergy /> }
 ]
   
 // ─────────────────────────────────────────────────────────────────────────────
